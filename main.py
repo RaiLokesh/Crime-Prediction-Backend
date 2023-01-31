@@ -1,4 +1,5 @@
 from typing import Union
+from fastapi.middleware.cors import CORSMiddleware
 import pickle
 import numpy as np
 from fastapi import FastAPI
@@ -6,6 +7,15 @@ from pydantic import BaseModel
 import uvicorn
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    # allow_origins=['*'],
+    allow_origins=["http://localhost","http://127.0.0.1:3000", 'http://localhost:8080', "http://localhost:3000", "https://samsara-web.netlify.app"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Params(BaseModel):
     day: int
