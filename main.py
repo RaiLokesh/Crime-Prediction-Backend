@@ -11,7 +11,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     # allow_origins=['*'],
-    allow_origins=["http://localhost","http://127.0.0.1:3000", 'http://localhost:8080', "http://localhost:3000", "https://samsara-web.netlify.app"],
+    allow_origins=["http://localhost","http://127.0.0.1:3000", 'http://localhost:8080', "http://localhost:3000", "https://crime-prediction-frontend.vercel.app/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,9 +54,14 @@ with open("Notebooks/model.pkl", "rb") as file:
 with open("Notebooks/scaler.pkl", "rb") as file:
     scaler = pickle.load(file)
 
+
+
+
 @app.get("/")
 def read_root():
-    "Hii Go to /predict/ and do a post request to predict"
+    test = np.array([[2012, 6, 4, 1, 2, 49.244879, -123.085077, DistanceToGraffiti(49.244879, -123.085077), DistanceToFountain(49.244879, -123.085077)]])
+    test = scaler.transform(test)
+    return str(model.predict(test))+str(DistanceToGraffiti(49.244879, -123.085077))+str(DistanceToFountain(49.244879, -123.085077))
 
 @app.post("/predict/")
 async def prediction(values: Params):

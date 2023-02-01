@@ -11,7 +11,7 @@ def DistanceToGraffiti(lat1, lon1):
     a = np.square(np.sin(diff_array[:, 0]/2.0)) + np.cos(coordinates[0]) * np.cos(graffiti[:, 0]) * np.square(np.sin(diff_array[:, 1]/2.0))
     c = 2 * np.arcsin(np.sqrt(a)) 
     return np.amin(c)*r
-DistanceToGraffiti(49.2650765,-123.1184743)
+#DistanceToGraffiti(49.2650765,-123.1184743)
 
 
 def DistanceToFountain(lat1, lon1):
@@ -24,14 +24,14 @@ def DistanceToFountain(lat1, lon1):
     a = np.square(np.sin(diff_array[:, 0]/2.0)) + np.cos(coordinates[0]) * np.cos(drinking[:, 0]) * np.square(np.sin(diff_array[:, 1]/2.0))
     c = 2 * np.arcsin(np.sqrt(a)) 
     return np.amin(c)*r
-DistanceToFountain(49.2650765,-123.1184743)
+#DistanceToFountain(49.2650765,-123.1184743)
 
 with open("model.pkl", "rb") as file:
     model = pickle.load(file)
 with open("scaler.pkl", "rb") as file:
     scaler = pickle.load(file)
     
-test = np.array([[2012, 6, 4, 22, 2, 49.238019, -123.163815, DistanceToGraffiti(49.238019, -123.163815), DistanceToFountain(49.238019, -123.163815)]])
+test = np.array([[2012, 6, 4, 1, 2, 49.244879, -123.085077, DistanceToGraffiti(49.244879, -123.085077), DistanceToFountain(49.244879, -123.085077)]])
 test = scaler.transform(test)
 
 print(model.predict(test))
