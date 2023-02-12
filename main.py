@@ -69,6 +69,15 @@ async def prediction(values: Params):
     test = scaler.transform(test)
     return (model.predict(test)[0][0]*100)
 
+@app.post("/allDayPredictions/")
+async def allDayPredictions(values: Params):
+    ans = []
+    for i in range(24):
+        test = np.array([[values.year, values.month, values.day, i, 2, values.latitude, values.longitude, DistanceToGraffiti(values.latitude, values.longitude), DistanceToFountain(values.latitude, values.longitude)]])
+        test = scaler.transform(test)
+        ans.append(model.predict(test)[0][0]*100)
+    return ans
+
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
 
