@@ -79,7 +79,7 @@ async def prediction(values: Params):
 async def allDayPredictions(values: Params):
     ans = []
     for i in range(24):
-        test = np.array([[values.year, values.month, values.day, i, 2, values.latitude, values.longitude, DistanceToGraffiti(values.latitude, values.longitude), DistanceToFountain(values.latitude, values.longitude)]])
+        test = np.array([[values.year, values.month, values.day, i, 0, values.latitude, values.longitude, DistanceToGraffiti(values.latitude, values.longitude), DistanceToFountain(values.latitude, values.longitude)]])
         test = scaler.transform(test)
         ans.append(model.predict(test)[0][0]*100)
     return ans
